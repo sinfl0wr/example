@@ -82,6 +82,7 @@ p{margin:0}
 
 /* ---------- section scaffolding ---------- */
 section{position:relative}
+section[hidden]{display:none}
 .sec{padding-top:var(--section); padding-bottom:var(--section)}
 .head{font-size:var(--step-head)}
 .intro{margin-top:20px; max-width:34ch; font-size:var(--step-body)}
@@ -92,6 +93,7 @@ section{position:relative}
 .tiles{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; list-style:none; margin:0; padding:0}
 .tile .face{height:clamp(220px,26vw,380px); display:grid; place-items:center; position:relative; overflow:hidden}
 .tile:nth-child(2),.tile:nth-child(6){grid-column:span 2}
+@media (min-width:901px){ .tiles.n4 .tile{grid-column:span 2} .tiles.n5 .tile:nth-child(n+4){grid-column:span 2} }
 .tile .face.f0{background:var(--surface)} .tile .face.f1{background:var(--accent); color:var(--accent-ink)} .tile .face.f2{background:var(--deep)}
 .tile .fig{font-size:var(--step-figure); font-weight:600; letter-spacing:-.04em; line-height:1; text-align:center; padding:0 12px}
 .tile .fig small{display:block; font-size:var(--step-body); letter-spacing:0; font-weight:500; margin-top:10px}
@@ -129,8 +131,9 @@ section{position:relative}
 .steps p{max-width:32ch}
 
 /* ---------- wall of tiles ---------- */
-.wall{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; padding:8px}
+.wall{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); grid-auto-flow:dense; gap:8px; padding:8px}
 .cell{aspect-ratio:1; position:relative; display:grid; place-items:center; overflow:hidden}
+.cell.wide{grid-column:span 2; aspect-ratio:2/1}
 .cell .big{font-size:var(--step-figure); font-weight:600; letter-spacing:-.04em; line-height:.95; text-align:center; padding:0 8%}
 .cell .cap{position:absolute; left:12px; right:12px; bottom:18px; text-align:center; font-size:var(--step-small); font-weight:500}
 .cell img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:saturate(.85) sepia(.12) brightness(.9)}
@@ -255,6 +258,7 @@ footer{background:var(--deep); padding-top:clamp(64px,8vw,120px); padding-bottom
   .svc-head{gap:20px}
   .tiles{grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px}
   .tile:nth-child(2){order:-1}
+  .tiles.n4 .tile:nth-child(4){grid-column:span 2}
   .wall{grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; padding:6px}
   .testi{grid-template-columns:1fr}
   .portrait{grid-column:auto; grid-row:auto; width:100%; max-width:520px; aspect-ratio:4/5; max-height:none}
@@ -362,7 +366,7 @@ footer{background:var(--deep); padding-top:clamp(64px,8vw,120px); padding-bottom
             <li><span class="dot" aria-hidden="true"></span><span>Conservation area: six weeks' written notice to the council for trees wider than 7.5cm at 1.5m above ground.</span></li>
             <li><span class="dot" aria-hidden="true"></span><span>Bird nesting season runs roughly March to August; trees are checked for active nests before work.</span></li>
           </ul>
-          <p class="small">A general guide for England, not legal advice.</p>
+          <p class="small" data-bind="lawNote">A general guide for England, not legal advice.</p>
         </div>
       </form>
     </div>
@@ -767,7 +771,7 @@ const SITE = {
   const MODE = S.mode || (S.example ? 'example' : 'live');
   const T = S.text || {}, H = S.headings || {};
   const qh = S.quoteHeadline || ["Free quote", "within " + S.quoteTime + "."];
-  const bind = { shortName:S.shortName, phone:S.phone, heroLine:S.heroLine, servicesIntro:S.servicesIntro, howIntro:S.howIntro,
+  const bind = { lawNote:S.lawNote || 'A general guide for ' + (S.nation || 'England') + ', not legal advice.', shortName:S.shortName, phone:S.phone, heroLine:S.heroLine, servicesIntro:S.servicesIntro, howIntro:S.howIntro,
                  quoteHeadline1:qh[0], quoteHeadline2:qh[1], areasIntro:S.areasIntro || "",
                  hServices:H.services, hCheck:H.check, hHow:H.how, hAreas:H.areas, hFaq:H.faq,
                  checkerIntro:T.checkerIntro, contactLine:T.contactLine, ctaHero:T.ctaHero, ctaShort:T.ctaShort, ctaSubmit:T.ctaSubmit };
@@ -799,6 +803,15 @@ const SITE = {
 
   // services
   $('#tiles').innerHTML = S.services.map((s, i) => '<li class="tile rv" style="--d:' + (i%3) + '"><div class="face f' + (s.photo ? 2 : i%3) + '">' + (s.photo ? '<img src="' + esc(s.photo) + '" alt="" loading="lazy">' : '<div class="fig">' + esc(s.fig) + '<small>' + esc(s.unit) + '</small></div>') + '</div><h3>' + esc(s.name) + '</h3><p>' + esc(s.fact) + '</p></li>').join('');
+
+  // hide sections that have no real content
+  $('#tiles').classList.add('n' + (S.services || []).length);
+  if (!(S.services || []).length) $('#services').hidden = true;
+  if (!(S.steps || []).length) $('#how').hidden = true;
+  if (!(S.wall || []).length) $('#work').hidden = true;
+  if (!(S.faq || []).length) $('#faq').hidden = true;
+  if (!(S.areas || []).length) $('#areas').hidden = true;
+  if (!(S.reviews || []).length) $('#reviews').hidden = true;
 
   // steps
   $('#steps').innerHTML = S.steps.map((s, i) => '<li class="rv" style="--d:' + i + '"><b>' + esc(s.name) + '</b><p>' + esc(s.text) + '</p></li>').join('');
@@ -836,7 +849,7 @@ const SITE = {
     if (c.photo != null && work[c.photo]) return '<div class="cell c2 rv" style="--d:' + (i%4) + '"><img src="' + esc(work[c.photo]) + '" alt="" loading="lazy" width="800" height="800"></div>';
     if (c.photo != null) return '';
     const cls = 'c' + (ci++ % 4);
-    return '<div class="cell ' + cls + ' rv" style="--d:' + (i%4) + '"><div class="big">' + esc(c.big) + '</div><div class="cap">' + esc(c.cap) + '</div></div>';
+    return '<div class="cell ' + cls + (c.wide ? ' wide' : '') + ' rv" style="--d:' + (i%4) + '"><div class="big">' + esc(c.big) + '</div><div class="cap">' + esc(c.cap) + '</div></div>';
   }).join('');
 
   // reviews
@@ -865,10 +878,26 @@ const SITE = {
     const far = Math.max(...pts.map(p => Math.hypot(p.x, p.y))), R = Math.max(2, Math.ceil(far)), u = Math.min(225 / R, 205 / far);
     let out = '';
     for (let i = R; i >= 1; i--) out += '<circle r="' + (i * u).toFixed(1) + '" fill="' + (i % 2 ? 'var(--surface)' : '#1f4f31') + '"/>';
-    out += '<g class="town"><circle r="7" fill="none" stroke="var(--ink)" stroke-width="3"/><text x="-14" y="5" text-anchor="end">' + esc(M.label || S.town) + '</text></g>';
-    pts.forEach(p => {
-      const x = p.x * u, y = p.y * u, t = p.side === 'l' ? [x - 12, y + 5, 'end'] : p.side === 'b' ? [x, y + 26, 'middle'] : p.side === 'br' ? [x + 6, y + 28, 'start'] : [x + 12, y + 5, 'start'];
-      out += '<g class="pt" data-area="' + esc(p.n) + '"><circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="6" fill="var(--ink)"/><text x="' + t[0].toFixed(1) + '" y="' + t[1].toFixed(1) + '" text-anchor="' + t[2] + '">' + esc(p.n) + '</text></g>';
+    // labels: try right, left, below, above, below-right; keep inside the frame and clear of other labels and dots
+    const boxes = [], lim = 228, cw = 8.7;
+    const boxFor = (x, y, side, w) => side === 'l' ? [x - 12 - w, y - 8, x - 12, y + 8] : side === 'b' ? [x - w / 2, y + 14, x + w / 2, y + 30] : side === 'a' ? [x - w / 2, y - 26, x + w / 2, y - 10] : side === 'br' ? [x + 6, y + 16, x + 6 + w, y + 32] : [x + 12, y - 8, x + 12 + w, y + 8];
+    const hit = (b) => b[0] < -lim || b[2] > lim || b[1] < -lim || b[3] > lim || boxes.some(o => !(b[2] < o[0] || b[0] > o[2] || b[3] < o[1] || b[1] > o[3]));
+    const centreName = M.label || S.town, cwid = centreName.length * cw * 1.05;
+    boxes.push([-10, -10, 10, 10]);
+    pts.forEach(p => { const x = p.x * u, y = p.y * u; boxes.push([x - 8, y - 8, x + 8, y + 8]); });
+    let cside = ['l', 'r', 'b', 'a'].find(sd => !hit(boxFor(0, 0, sd, cwid))) || 'l';
+    boxes.push(boxFor(0, 0, cside, cwid));
+    const anchor = sd => sd === 'l' ? 'end' : (sd === 'b' || sd === 'a') ? 'middle' : 'start';
+    const txy = (x, y, sd) => sd === 'l' ? [x - 12, y + 5] : sd === 'b' ? [x, y + 26] : sd === 'a' ? [x, y - 14] : sd === 'br' ? [x + 6, y + 28] : [x + 12, y + 5];
+    const ct = txy(0, 0, cside);
+    out += '<g class="town"><circle r="7" fill="none" stroke="var(--ink)" stroke-width="3"/><text x="' + ct[0] + '" y="' + ct[1] + '" text-anchor="' + anchor(cside) + '">' + esc(centreName) + '</text></g>';
+    pts.slice().sort((a, b) => Math.hypot(a.x, a.y) - Math.hypot(b.x, b.y)).forEach(p => {
+      const x = p.x * u, y = p.y * u, w = p.n.length * cw;
+      const order = p.side ? [p.side, 'r', 'l', 'b', 'a', 'br'] : (x > 0 ? ['r', 'l', 'b', 'a', 'br'] : ['l', 'r', 'b', 'a', 'br']);
+      const sd = order.find(o => !hit(boxFor(x, y, o, w))) || order[0];
+      boxes.push(boxFor(x, y, sd, w));
+      const t = txy(x, y, sd);
+      out += '<g class="pt" data-area="' + esc(p.n) + '"><circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="6" fill="var(--ink)"/><text x="' + t[0].toFixed(1) + '" y="' + t[1].toFixed(1) + '" text-anchor="' + anchor(sd) + '">' + esc(p.n) + '</text></g>';
     });
     svg.innerHTML = out;
     const links = [...$$('#areaList li'), ...$$('#ringMap .pt')];
