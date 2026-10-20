@@ -138,26 +138,42 @@ section{position:relative}
 
 /* ---------- testimonial ---------- */
 .testi{display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:24px}
+#reviews{padding-top:clamp(72px,8vw,136px); padding-bottom:clamp(72px,8vw,136px)}
 .portrait{grid-column:2 / span 4; grid-row:1; aspect-ratio:3/4; max-height:72svh; border-radius:50% 50% 0 0 / 34% 34% 0 0; overflow:hidden; background:var(--surface)}
 .portrait img{width:100%; height:100%; object-fit:cover; filter:saturate(.85) sepia(.12) brightness(.9)}
-.quote{grid-column:7 / span 6; grid-row:1 / span 2; margin-top:120px}
+.quote{grid-column:7 / span 6; grid-row:1; align-self:center}
 .quote blockquote{margin:0; font-size:var(--step-statement); line-height:1.22; font-weight:400; letter-spacing:-.015em; max-width:32ch}
 .quote blockquote.long{font-size:var(--step-lead); max-width:40ch}
 .quote .who{margin-top:28px; color:var(--muted)}
 .quote .who b{color:var(--ink); font-weight:500}
-.more{margin-top:56px; display:grid; gap:28px; max-width:44ch}
+.more{margin-top:48px; display:grid; gap:24px; max-width:600px}
+.rev{display:grid; grid-template-columns:112px minmax(0,1fr); gap:22px; align-items:center}
+.rev.nophoto{grid-template-columns:1fr}
+.rev .thumb{margin:0; width:112px; aspect-ratio:1; border-radius:50%; overflow:hidden; background:var(--surface)}
+.rev .thumb img{width:100%; height:100%; object-fit:cover; filter:saturate(.85) sepia(.12) brightness(.9)}
 .more blockquote{margin:0; font-size:var(--step-body)}
 .more .who{margin-top:8px; color:var(--muted); font-size:var(--step-small)}
 .stars{display:inline-flex; gap:4px; color:var(--ink)} .stars svg{width:18px; height:18px; fill:currentColor}
 .small-photo{grid-column:4 / span 2; grid-row:2; margin-top:-56px; aspect-ratio:1; border-radius:50%; overflow:hidden; background:var(--surface)}
 .small-photo img{width:100%; height:100%; object-fit:cover; filter:saturate(.85) sepia(.12) brightness(.9)}
-.sample-note{grid-column:7 / span 6; grid-row:3; margin-top:48px; color:var(--muted); font-size:var(--step-small)}
+.sample-note{grid-column:7 / span 6; grid-row:2; margin-top:40px; color:var(--muted); font-size:var(--step-small)}
 
 /* ---------- areas ---------- */
-.areas{display:grid; grid-template-columns:minmax(0,4fr) minmax(0,8fr); gap:32px; align-items:start}
-.areas ul{list-style:none; margin:0; padding:0; columns:3 180px; column-gap:32px; font-size:var(--step-lead); line-height:1.3}
+.areas{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); grid-template-rows:1fr auto auto auto 1fr; grid-template-areas:". map" "h map" "p map" "list map" ". map"; column-gap:clamp(32px,5vw,80px)}
+.areas h2{grid-area:h}
+.areas .intro{grid-area:p}
+.areas ul{grid-area:list; list-style:none; margin:36px 0 0; padding:0; columns:2; column-gap:32px; font-size:var(--step-lead); line-height:1.3}
 .areas li{display:flex; gap:14px; align-items:baseline; padding:6px 0; break-inside:avoid}
-.areas li .dot{color:var(--ink)}
+.areas li .dot{color:var(--ink); transition:background-color 180ms ease}
+.areas li.on .dot{background:currentColor}
+.ringmap{grid-area:map; margin:0; width:100%; max-width:560px; justify-self:end; align-self:center}
+.ringmap[hidden]{display:none}
+.ringmap svg{width:100%; height:auto; display:block; overflow:visible}
+.ringmap text{font-family:var(--font); font-size:16px; fill:var(--ink)}
+.ringmap .town text{font-weight:600}
+.ringmap .pt circle{transform-box:fill-box; transform-origin:center; transition:transform 220ms var(--ease-out)}
+.ringmap .pt.on circle{transform:scale(1.7)}
+.ringmap .pt.on text{font-weight:600}
 
 /* ---------- faq: tabbed cards ---------- */
 .faq .head{margin-bottom:56px}
@@ -232,13 +248,18 @@ footer{background:var(--deep); padding-top:clamp(64px,8vw,120px); padding-bottom
   .years{bottom:20px; right:auto; left:var(--edge); text-align:left}
 }
 @media (max-width:900px){
-  .svc-head,.band .inner,.areas{grid-template-columns:1fr}
+  .svc-head,.band .inner{grid-template-columns:1fr}
+  .areas{grid-template-columns:1fr; grid-template-rows:auto; grid-template-areas:"h" "p" "map" "list"}
+  .ringmap{justify-self:center; margin-top:32px}
+  .areas ul{font-size:var(--step-body); margin-top:28px}
   .svc-head{gap:20px}
   .tiles{grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px}
   .tile:nth-child(2){order:-1}
   .wall{grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; padding:6px}
   .testi{grid-template-columns:1fr}
-  .portrait{grid-column:auto; grid-row:auto; width:72%; max-height:none}
+  .portrait{grid-column:auto; grid-row:auto; width:100%; max-width:520px; aspect-ratio:4/5; max-height:none}
+  .rev{grid-template-columns:88px minmax(0,1fr); gap:16px}
+  .rev .thumb{width:88px}
   .quote{grid-column:auto; grid-row:auto; margin-top:32px}
   .small-photo{grid-column:auto; grid-row:auto; width:44%; justify-self:end; margin-top:48px}
   .sample-note{grid-column:auto; grid-row:auto}
@@ -380,6 +401,8 @@ footer{background:var(--deep); padding-top:clamp(64px,8vw,120px); padding-bottom
   <section class="sec wrap" id="areas" aria-labelledby="areas-h" style="padding-top:0">
     <div class="areas">
       <h2 class="head rv" id="areas-h">Where we work.</h2>
+      <p class="intro rv" style="--d:1" data-bind="areasIntro"></p>
+      <figure class="ringmap rv" style="--d:2"><svg id="ringMap" viewBox="-230 -230 460 460" role="img" aria-label="Map of the areas we cover around the town centre"></svg></figure>
       <ul id="areaList"></ul>
     </div>
   </section>
@@ -485,10 +508,22 @@ const SITE = {
   ],
   reviews: [
     { text: "Took down a 20-metre leylandii by the house in a day. The quote was exactly what we paid.", name: "Sarah", place: "Sanderstead" },
-    { text: "Called on a Sunday after the storm split our oak. It was made safe the same afternoon.", name: "Tom", place: "Purley" },
-    { text: "Crown reduction on two limes. Neat job, everything cleared, and they sorted the conservation area notice for us.", name: "Priya", place: "South Croydon" }
+    { text: "Called on a Sunday after the storm split our oak. It was made safe the same afternoon.", name: "Tom", place: "Purley",
+      photo: "https://images.unsplash.com/photo-1645466996104-22f4b160331b?w=300&h=300&fit=crop&crop=entropy&auto=format&q=70" },   // optional small round photo next to the review
+    { text: "Crown reduction on two limes. Neat job, everything cleared, and they sorted the conservation area notice for us.", name: "Priya", place: "South Croydon",
+      photo: "https://images.unsplash.com/photo-1709560723503-538158e48db8?w=300&h=300&fit=crop&crop=entropy&auto=format&q=70" }
   ],
   areas: ["Addiscombe", "Coulsdon", "Kenley", "Norbury", "Purley", "Sanderstead", "Selsdon", "Shirley", "South Croydon", "Thornton Heath", "Waddon", "Woodside"],
+  areasIntro: "Each ring on the map is one mile from the centre of Croydon.",
+  areaMap: {                                   // latitude, longitude from Google Maps (right-click a place); optional 3rd value "l", "b" or "br" puts the label left, below or below-right. places:{} hides the map
+    centre: [51.3762, -0.0982], label: "Croydon",
+    places: {
+      "Addiscombe": [51.3794, -0.0743, "br"], "Coulsdon": [51.3200, -0.1386, "l"], "Kenley": [51.3256, -0.0960],
+      "Norbury": [51.4120, -0.1207], "Purley": [51.3375, -0.1145, "l"], "Sanderstead": [51.3358, -0.0818],
+      "Selsdon": [51.3445, -0.0590], "Shirley": [51.3780, -0.0510], "South Croydon": [51.3620, -0.0950],
+      "Thornton Heath": [51.3990, -0.1060], "Waddon": [51.3680, -0.1170, "l"], "Woodside": [51.3870, -0.0700]
+    }
+  },
   faq: [
     { tab: "Cost", q: "How much will it cost?", a: "Every tree is different, so we come and look first. You get a fixed price in writing within 48 hours, and that's what you pay." },
     { tab: "Clear-up", q: "Do you take everything away?", a: "Yes. Branches go through the chipper, logs are taken or stacked for your fire, and the lawn is raked before we leave." },
@@ -499,14 +534,14 @@ const SITE = {
   ],
   photos: {                                    // replace with the client's own photos, e.g. "photos/1.jpg" uploaded next to index.html
     review: "https://images.unsplash.com/photo-1588878309774-4b3f42a19a8f?w=900&h=1200&fit=crop&crop=entropy&auto=format&q=70",   // tall photo (3:4)
-    place: "https://images.unsplash.com/photo-1709560723503-538158e48db8?w=600&h=600&fit=crop&crop=entropy&auto=format&q=70",    // square, shown as a circle
+    place: "",                                                                                                      // optional square photo, shown as a small circle under the tall one; "" hides it
     work: [                                                                                                         // three square photos for the tile wall
       "https://images.unsplash.com/photo-1754322449185-31f56117ed87?w=800&h=800&fit=crop&crop=entropy&auto=format&q=70",
       "https://images.unsplash.com/photo-1574359173269-291f060e6fe1?w=800&h=800&fit=crop&crop=entropy&auto=format&q=70",
       "https://images.unsplash.com/photo-1521633603986-cb82a097ffba?w=800&h=800&fit=crop&crop=entropy&auto=format&q=70"
     ]
   },
-  photoCredits: "Photos: Richard Burlton, Scott Precious, Zack Masters, Michael Wilson and Markus Spiske on Unsplash.", // empty "" when the photos are the client's own
+  photoCredits: "Photos: Richard Burlton, Scott Precious, Zack Masters, Michael Wilson, Markus Spiske and Marek Studzinski on Unsplash.", // empty "" when the photos are the client's own
   formKey: "",                                 // web3forms.com access key; empty = form opens the visitor's email app instead
   madeBy: "Example site by Yegor"
 };
@@ -520,7 +555,7 @@ const SITE = {
 
   // simple bindings
   const bind = { shortName:S.shortName, phone:S.phone, heroLine:S.heroLine, servicesIntro:S.servicesIntro, howIntro:S.howIntro,
-                 quoteHeadline1:"Free quote", quoteHeadline2:"within " + S.quoteTime + "." };
+                 quoteHeadline1:"Free quote", quoteHeadline2:"within " + S.quoteTime + ".", areasIntro:S.areasIntro || "" };
   $$('[data-bind]').forEach(el => { const v = bind[el.dataset.bind]; if (v != null) el.textContent = v; });
   $$('[data-call]').forEach(a => a.href = 'tel:' + S.phoneLink);
   $('#h1').innerHTML = S.headline.map(l => '<span>' + esc(l) + '</span>').join('');
@@ -594,13 +629,34 @@ const SITE = {
     if (first.text.length > 110) $('#q-main').classList.add('long');
     $('#q-who').innerHTML = '<span class="stars" role="img" aria-label="5 stars">' + STAR.repeat(5) + '</span><br><b>' + esc(first.name) + '</b>, ' + esc(first.place);
   }
-  $('#q-more').innerHTML = rest.map((r, i) => '<div class="rv" style="--d:' + (i+2) + '"><blockquote>“' + esc(r.text) + '”</blockquote><p class="who"><b style="color:var(--ink);font-weight:500">' + esc(r.name) + '</b>, ' + esc(r.place) + '</p></div>').join('');
+  $('#q-more').innerHTML = rest.map((r, i) => '<div class="rev rv' + (r.photo ? '' : ' nophoto') + '" style="--d:' + (i+2) + '">' + (r.photo ? '<figure class="thumb"><img src="' + esc(r.photo) + '" alt="" loading="lazy" width="224" height="224"></figure>' : '') + '<div><blockquote>“' + esc(r.text) + '”</blockquote><p class="who"><b style="color:var(--ink);font-weight:500">' + esc(r.name) + '</b>, ' + esc(r.place) + '</p></div></div>').join('');
   const rp = $('#reviewPhoto'), pp = $('#placePhoto');
   if (S.photos && S.photos.review) rp.src = S.photos.review; else rp.closest('figure').hidden = true;
   if (S.photos && S.photos.place) pp.src = S.photos.place; else pp.closest('figure').hidden = true;
 
   // areas
-  $('#areaList').innerHTML = S.areas.map((a, i) => '<li class="rv" style="--d:' + (i%6) + '"><span class="dot" aria-hidden="true"></span>' + esc(a) + '</li>').join('');
+  $('#areaList').innerHTML = S.areas.map((a, i) => '<li class="rv" style="--d:' + (i%6) + '" data-area="' + esc(a) + '"><span class="dot" aria-hidden="true"></span>' + esc(a) + '</li>').join('');
+  if (!S.areasIntro) $('#areas .intro').hidden = true;
+
+  // area map: rings one mile apart around the town centre, places at their real positions
+  (function areaMap(){
+    const M = S.areaMap || {}, svg = $('#ringMap'), fig = svg.closest('figure'), names = Object.keys(M.places || {});
+    if (!M.centre || !names.length){ fig.hidden = true; return; }
+    const [la0, lo0] = M.centre, k = Math.cos(la0 * Math.PI / 180);
+    const pts = names.map(n => { const [la, lo, side] = M.places[n]; return { n, side, x:(lo - lo0) * 69.1 * k, y:-(la - la0) * 69.1 }; });
+    const far = Math.max(...pts.map(p => Math.hypot(p.x, p.y))), R = Math.max(2, Math.ceil(far)), u = Math.min(225 / R, 205 / far);
+    let out = '';
+    for (let i = R; i >= 1; i--) out += '<circle r="' + (i * u).toFixed(1) + '" fill="' + (i % 2 ? 'var(--surface)' : '#1f4f31') + '"/>';
+    out += '<g class="town"><circle r="7" fill="none" stroke="var(--ink)" stroke-width="3"/><text x="-14" y="5" text-anchor="end">' + esc(M.label || S.town) + '</text></g>';
+    pts.forEach(p => {
+      const x = p.x * u, y = p.y * u, t = p.side === 'l' ? [x - 12, y + 5, 'end'] : p.side === 'b' ? [x, y + 26, 'middle'] : p.side === 'br' ? [x + 6, y + 28, 'start'] : [x + 12, y + 5, 'start'];
+      out += '<g class="pt" data-area="' + esc(p.n) + '"><circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="6" fill="var(--ink)"/><text x="' + t[0].toFixed(1) + '" y="' + t[1].toFixed(1) + '" text-anchor="' + t[2] + '">' + esc(p.n) + '</text></g>';
+    });
+    svg.innerHTML = out;
+    const links = [...$$('#areaList li'), ...$$('#ringMap .pt')];
+    const hl = (name, on) => links.forEach(el => { if (el.dataset.area === name) el.classList.toggle('on', on); });
+    links.forEach(el => { el.addEventListener('mouseenter', () => hl(el.dataset.area, true)); el.addEventListener('mouseleave', () => hl(el.dataset.area, false)); });
+  })();
 
   // faq cards
   $('#cards').innerHTML = S.faq.map((f, i) => '<div class="card k' + (i%3) + (i===0?' open':'') + '" style="--i:' + i + ';z-index:' + (i+1) + '"><h3><button type="button" aria-expanded="' + (i===0) + '" aria-controls="a' + i + '"><span class="tab">' + esc(f.tab) + '</span><span class="qtext">' + esc(f.q) + '</span></button></h3><div class="ans" id="a' + i + '"><div><p>' + esc(f.a) + '</p></div></div></div>').join('');
