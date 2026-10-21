@@ -23,7 +23,7 @@
     { name: "Pruning and shaping", fact: "A blossom tree shaped to look right from every angle; birch and hawthorn pruned.", fig: "Pruning", unit: "shaped from every angle" },
     { name: "Hedges", fact: "Hedges cut back fast with the waste cleared, even overgrown parish council hedges.", fig: "Hedges", unit: "trimmed back, waste gone" },
     { name: "Garden clearance", fact: "Neglected, overgrown gardens cleared, with old trees and shrubs shredded on site.", fig: "Clearing", unit: "overgrown gardens tamed" },
-    { name: "Fencing", fact: "New fence panels fitted in a tricky spot, and a full fence installed to a high standard.", fig: "Fencing", unit: "new panels and fences" }
+    { name: "Fencing", fact: "New fence panels fitted in a tricky spot, and a fence fitted to a high standard.", fig: "Fencing", unit: "new panels and fences" }
   ],
   steps: [
     { name: "Quote", text: "Rudy visits to quote, and customers say the quote came quickly and the price was fair." },

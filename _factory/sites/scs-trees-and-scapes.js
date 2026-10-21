@@ -35,7 +35,7 @@
     { big: "93", cap: "five-star reviews" },
     { big: "Tidy", cap: "the word reviews keep using" },
     { big: "Hedges", cap: "a job customers mention often" },
-    { big: "Polite", cap: "staff, in many reviews" },
+    { big: "Polite", cap: "and helpful, say customers" },
     { big: "Advice", cap: "on trees, say customers" },
     { big: "Quick", cap: "to reply, say customers" }
   ],

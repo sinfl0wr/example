@@ -36,7 +36,7 @@
     { big: "Quick", cap: "same-day visits, say customers" },
     { big: "Tidy", cap: "cuttings and waste taken away" },
     { big: "Fair", cap: "price, say customers" },
-    { big: "Polite", cap: "the word reviews keep using" }
+    { big: "Polite", cap: "and friendly, say customers" }
   ],
   reviews: [
     { text: "We needed 30 big conifers removed in a hurry. A quote came the same day at a fair price, and the team arrived early next morning and sorted it.", source: "Google review", when: "Jun 2026" },

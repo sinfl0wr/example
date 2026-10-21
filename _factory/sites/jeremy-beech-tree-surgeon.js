@@ -35,7 +35,7 @@
     { big: "Tidy", cap: "clear-up, in many reviews" },
     { big: "On time", cap: "arrival times, say customers" },
     { big: "Value", cap: "price comes up in reviews" },
-    { big: "Polite", cap: "the word reviews keep using" },
+    { big: "Polite", cap: "and friendly, say customers" },
     { big: "Repeat", cap: "customers come back" },
     { big: "Safe", cap: "climbing, say customers" }
   ],
