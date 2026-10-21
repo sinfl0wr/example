@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """Build personal demo sites.
 
-  python3 build.py sites/<slug>.js [...]   ->  /home/claude/example/<slug>/index.html (+ img/)
+  python3 build.py --relayout NAME <slug> [<slug> ...]   (new look for demos already built; no network)
+  python3 build.py [--layout NAME] [--auto] sites/<slug>.js [...]   ->  <repo root>/<slug>/index.html (+ img/)
+
+Layouts (see LAYOUTS): the site file's `layout` field wins, then --layout, then the saved choice in layouts.json,
+then --auto (picks the least-used new layout and avoids the ones already used in the same town), else "ring"
+(the original look, so the 72 existing demos stay as they are).
 
 A site file is a JS object literal written by the copy agent (see RULES.md). This script adds the
 standard demo texts, downloads and crops the business's own photos, and renders the template.
@@ -9,6 +14,27 @@ standard demo texts, downloads and crops the business's own photos, and renders 
 import html, io, json, pathlib, subprocess, sys, urllib.request
 
 ROOT = pathlib.Path(__file__).parent
+LAYOUT_FILE = ROOT / 'layouts.json'  # slug -> layout, so a rebuild keeps the look and --auto can rotate
+
+GF = 'https://fonts.googleapis.com/css2?{}&display=swap'
+def gfonts(*families):
+    link = GF.format('&'.join('family=' + f for f in families))
+    return ('<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+            '<link href="' + link + '" rel="stylesheet">')
+
+LAYOUTS = {  # hero kind and portrait are used by the CSS in template.html
+    'ring':   dict(hero='stump',  portrait='on',  theme='#133621', flat=False, fonts=(
+        '<link rel="preconnect" href="https://api.fontshare.com">\n<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>\n'
+        '<link href="https://api.fontshare.com/v2/css?f[]=chillax@400,500,600&display=swap" rel="stylesheet">')),
+    'stripe': dict(hero='split',  portrait='off', theme='#ffffff', flat=True, fonts=gfonts('Inter:wght@300;400;500;600')),
+    'wise':   dict(hero='stack',  portrait='on',  theme='#e8ebe6', flat=True, fonts=gfonts('Manrope:wght@400;500;600;800')),
+    'nike':   dict(hero='cover',  portrait='on',  theme='#ffffff', flat=True, fonts=gfonts('Barlow:wght@400;500;600', 'Barlow+Condensed:wght@600;700')),
+    'apple':  dict(hero='center', portrait='off', theme='#000000', flat=True, fonts=gfonts('Inter:wght@400;500;600')),
+    'notion': dict(hero='center', portrait='off', theme='#ffffff', flat=True, fonts=gfonts('DM+Sans:wght@400;500;600;700')),
+    'airbnb': dict(hero='splitr', portrait='on',  theme='#ffffff', flat=True, fonts=gfonts('Figtree:wght@400;500;600;700')),
+    'uber':   dict(hero='split',  portrait='off', theme='#efefef', flat=True, fonts=gfonts('Inter+Tight:wght@400;500;700')),
+}
+AUTO_POOL = [k for k in LAYOUTS if k != 'ring']
 OUT = ROOT.resolve().parent  # repo root, served by Cloudflare Pages
 
 STOCK = {  # used only when the business has fewer than 2 photos of its own
@@ -148,8 +174,49 @@ def wall_with_photos(s):
             cells[i] = {**cells[i], 'wide': True}
     s['wall'] = cells
 
-def build(path):
+def relayout(slug, name, saved):
+    """Re-render an already built demo in another layout. No network: the page's own SITE data (and its img/ files) are reused."""
+    import re
+    if name not in LAYOUTS: raise SystemExit(f"unknown layout {name!r}; choose from {', '.join(LAYOUTS)}")
+    page_path = OUT / slug / 'index.html'
+    old = page_path.read_text(encoding='utf-8')
+    m = re.search(r'const SITE = (\{.*?\});\n\n/\* =+ rendering', old, re.S)
+    if not m: raise SystemExit(f'{slug}: SITE block not found')
+    data = m.group(1); s = json.loads(data.replace('<\\/', '</')); L = LAYOUTS[name]
+    tpl = (ROOT / 'template.html').read_text(encoding='utf-8')
+    page = (tpl.replace('__SITE__', data)
+               .replace('__LAYOUT__', name).replace('__HERO__', L['hero']).replace('__PORTRAIT__', L['portrait'])
+               .replace('__FLAT__', 'flat' if L['flat'] else '').replace('__THEME__', L['theme']).replace('__FONTS__', L['fonts'])
+               .replace('__TITLE__', html.escape(s['title'])).replace('__DESC__', html.escape(s['desc'])))
+    page_path.write_text(page, encoding='utf-8')
+    if name != 'ring' or slug in saved: saved[slug] = name
+    print('relayout', slug, name)
+
+def saved_layouts():
+    return json.loads(LAYOUT_FILE.read_text()) if LAYOUT_FILE.exists() else {}
+
+def pick_layout(s, forced, auto, saved, towns):
+    """Return the layout for this site. `towns` maps layout -> set of towns already using it (this run and saved)."""
+    name = s.get('layout') or forced or saved.get(s['slug'])
+    if not name and auto:
+        used = [v for v in saved.values() if v in AUTO_POOL]
+        def score(k):  # fewest uses overall first, never the same look twice in one town if avoidable
+            return (s['town'] in towns.get(k, ()), used.count(k), AUTO_POOL.index(k))
+        name = min(AUTO_POOL, key=score)
+    name = name or 'ring'
+    if name not in LAYOUTS:
+        raise SystemExit(f"unknown layout {name!r}; choose from {', '.join(LAYOUTS)}")
+    return name
+
+def build(path, forced=None, auto=False, saved=None, towns=None):
+    saved = {} if saved is None else saved
+    towns = {} if towns is None else towns
     s = defaults(load(path))
+    name = pick_layout(s, forced, auto, saved, towns)
+    L = LAYOUTS[name]
+    if name != 'ring' or s['slug'] in saved:
+        saved[s['slug']] = name
+    towns.setdefault(name, set()).add(s['town'])
     outdir = OUT / s['slug']
     outdir.mkdir(parents=True, exist_ok=True)
     photos(s, outdir)
@@ -158,11 +225,27 @@ def build(path):
     tpl = (ROOT / 'template.html').read_text(encoding='utf-8')
     data = json.dumps(s, ensure_ascii=False, indent=2).replace('</', '<\\/')
     page = (tpl.replace('__SITE__', data)
+               .replace('__LAYOUT__', name).replace('__HERO__', L['hero']).replace('__PORTRAIT__', L['portrait'])
+               .replace('__FLAT__', 'flat' if L['flat'] else '').replace('__THEME__', L['theme']).replace('__FONTS__', L['fonts'])
                .replace('__TITLE__', html.escape(s['title']))
                .replace('__DESC__', html.escape(s['desc'])))
     (outdir / 'index.html').write_text(page, encoding='utf-8')
-    print('built', s['slug'])
+    print('built', s['slug'], name)
 
 if __name__ == '__main__':
-    for p in sys.argv[1:]:
-        build(pathlib.Path(p))
+    args, forced, auto, paths = sys.argv[1:], None, False, []
+    i = 0
+    while i < len(args):
+        if args[i] == '--layout': forced = args[i + 1]; i += 2
+        elif args[i] == '--auto': auto = True; i += 1
+        elif args[i] == '--relayout':
+            saved = saved_layouts()
+            for slug in args[i + 2:]: relayout(slug, args[i + 1], saved)
+            LAYOUT_FILE.write_text(json.dumps(dict(sorted(saved.items())), indent=1) + '\n'); sys.exit(0)
+        else: paths.append(args[i]); i += 1
+    saved = saved_layouts()
+    towns = {}  # layout -> towns used in this run
+    for p in paths:
+        build(pathlib.Path(p), forced, auto, saved, towns)
+    if saved:
+        LAYOUT_FILE.write_text(json.dumps(dict(sorted(saved.items())), indent=1) + '\n')
