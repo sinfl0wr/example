@@ -18,7 +18,7 @@
   servicesIntro: "Trees, hedges and dead wood, from Phil and his team, with a tidy site at the end.",
   howIntro: "What customers mention again and again: a quick visit and quote, work done as scoped, and a tidy site.",
   services: [
-    { name: "Tree care", fact: "Cherry trees, a magnolia and a yew looked after over several visits.", fig: "Trees", unit: "cherry, magnolia, yew" },
+    { name: "Tree care", fact: "Cherry trees, a magnolia and a yew looked after by the team.", fig: "Trees", unit: "cherry, magnolia, yew" },
     { name: "Hedges", fact: "Box hedges and various short and high hedges cut, and left exceptionally tidy.", fig: "Hedges", unit: "box, short and tall" },
     { name: "Removal and dead wood", fact: "Dead branches taken out of a large oak, and a cherry laurel removed.", fig: "Deadwood", unit: "oak and cherry laurel" }
   ],

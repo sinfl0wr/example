@@ -25,7 +25,7 @@
   ],
   steps: [
     { name: "Agree", text: "A date and price are agreed, and customers say David does what he said he would." },
-    { name: "Respect", text: "Plants and property are treated with care, and the work is done swiftly." },
+    { name: "Respect", text: "Garden plants are treated with care, and the work is done swiftly." },
     { name: "Clear", text: "Waste is cleared and the site left clean and tidy, one customer coming home to find it done." }
   ],
   wall: [
@@ -37,7 +37,7 @@
     { big: "Oak", cap: "ancient, pollarded under a TPO" }
   ],
   reviews: [
-    { text: "Six large trees and two large bushes were cleared from a small garden the customer had just bought, quickly and at a price they called brilliant.", source: "Google review", when: "Nov 2025" },
+    { text: "Six large trees and two large bushes were cleared from a small garden the customer had just bought: a brilliant job at a brilliant price, they said.", source: "Google review", when: "Nov 2025" },
     { text: "David cut back a bramble-choked hedge and removed two trees, one of them dead. The customer and neighbours are delighted, and the waste was cleared well.", source: "Google review", when: "Oct 2025" },
     { text: "David has done several jobs across one customer's rental portfolio, from quick trims to pollarding an ancient TPO oak. He is polite and leaves sites tidy.", source: "Google review", when: "Apr 2024" }
   ],

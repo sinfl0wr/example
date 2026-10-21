@@ -27,7 +27,7 @@
   ],
   steps: [
     { name: "Quote", text: "Quick to quote: one customer had a visit the same day, another had the work done within a week of asking." },
-    { name: "Advice", text: "Honest advice on how much to cut, such as taking off a quarter of a beech and not more." },
+    { name: "Advice", text: "Honest advice on how much to cut: one customer was advised to take less off a beech than they had planned." },
     { name: "Tidy", text: "Cuttings are taken away or mulched on site, and the garden is left clean." }
   ],
   wall: [

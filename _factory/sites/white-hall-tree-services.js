@@ -41,7 +41,7 @@
   reviews: [
     { text: "Simon cut back a 7-metre hedge to a sensible size at a sensible price. The customer is booking him again for the other trees and hedges.", source: "Google review", when: "Mar 2022" },
     { text: "A clear, thorough explanation of the felling from start to finish. The team were fast and efficient and left the site spotless.", source: "Google review", when: "Aug 2021" },
-    { text: "Efficient, tidy work, then a visit a few days later to remove the stumps and leave the ground ready for landscaping.", source: "Google review", when: "Feb 2023" }
+    { text: "Efficient, tidy work, then they came back days later for the stumps, leaving the ground ready for landscaping.", source: "Google review", when: "Feb 2023" }
   ],
   reviewsNote: "Reviews paraphrased from White Hall Tree Services' Google reviews (5.0 from 23).",
   areas: ["Broomfield", "Great Baddow", "Writtle", "Danbury", "Boreham", "Hatfield Peverel", "Galleywood", "Ingatestone"],

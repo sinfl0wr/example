@@ -21,7 +21,7 @@
     { name: "Reduce and reshape", fact: "Two overgrown trees cut back and reshaped; a badly treated tree reduced and reshaped.", fig: "Reshape", unit: "overgrown trees" },
     { name: "Felling and removal", fact: "A 30-foot willow and a leaning tree by the road taken down; nuisance trees removed.", fig: "Felling", unit: "willow, leaning trees" },
     { name: "Dead wood", fact: "Dead wood trimmed from a huge sycamore, with a return visit on Saturday to finish.", fig: "Deadwood", unit: "large sycamore" },
-    { name: "Tall trees", fact: "A tall silver birch over three neighbouring gardens taken down with care.", fig: "Tall", unit: "over neighbours' gardens" }
+    { name: "Tall trees", fact: "A tall birch hanging over three gardens, worked on with careful safety measures.", fig: "Tall", unit: "over neighbours' gardens" }
   ],
   steps: [
     { name: "Booking", text: "Reviews describe friendly, clear communication from the first phone call to the finish." },

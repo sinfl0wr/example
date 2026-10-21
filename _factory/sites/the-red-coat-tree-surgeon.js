@@ -41,7 +41,7 @@
   reviews: [
     { text: "Charlie and his team reshaped a very old oak and took down a beech in the heat, above delicate internet lines. Logs left ready to split.", source: "Google review", when: "Aug 2026" },
     { text: "Charlie agreed the plan first, worked hard and safely, and cleared up so well. The customer booked him again for more tree work that same week.", source: "Google review", when: "Jul 2026" },
-    { text: "Called Charlie out a couple of times to take out trees and tidy large bushes. Prompt, polite and a very hard worker.", source: "Google review", when: "Jul 2026" }
+    { text: "Charlie came back more than once, removing trees and tidying big bushes. Prompt, polite and a very hard worker.", source: "Google review", when: "Jul 2026" }
   ],
   reviewsNote: "Reviews paraphrased from The Red Coat Tree Surgeon's Google reviews (5.0 from 10).",
   areas: ["Ashurst Wood", "Copthorne", "Crawley Down", "Dormansland", "Felbridge", "Forest Row", "Hartfield", "Lingfield", "Turners Hill", "West Hoathly"],

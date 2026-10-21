@@ -40,7 +40,7 @@
     { big: "Patios", cap: "and artificial grass" }
   ],
   reviews: [
-    { text: "Trimmed a huge, high oak branch hanging over a stream and a fence. Nothing in the garden was damaged and it was left very tidy.", source: "Google review", when: "Aug 2024" },
+    { text: "Trimmed a huge, high oak branch hanging over a stream and a fence. No damage to the garden, and everything left spotless.", source: "Google review", when: "Aug 2024" },
     { text: "Took down a tree that had partly come down in the wind, working through a torrential downpour. Mindful of the planting, and tidy after.", source: "Google review", when: "Jul 2023" },
     { text: "Fencing, a concrete shed base and a paved patio, with no side access and a lot of earth to move. Hard working and punctual, at very reasonable rates.", source: "Google review", when: "May 2022" }
   ],

@@ -18,7 +18,7 @@
   servicesIntro: "Felling, trimming and hedges, from Lewis and his team.",
   howIntro: "What customers mention again and again: good communication, a clear quote, and the working area left clean.",
   services: [
-    { name: "Tree felling", fact: "Four mature dead trees, 15 to 25 metres tall, cut down on the day promised.", fig: "Felling", unit: "mature and dead trees" },
+    { name: "Tree felling", fact: "Four mature dead trees, 15 to 25 metres tall, cut down.", fig: "Felling", unit: "mature and dead trees" },
     { name: "Tricky removals", fact: "A 60ft Scots pine felled beside a neighbour's greenhouse, over two days in 29 degree heat.", fig: "Tricky", unit: "tight, complex removals" },
     { name: "Trimming", fact: "Trees topped and trimmed back neatly and efficiently, with everything left tidy.", fig: "Trimming", unit: "topping and trimming" },
     { name: "Hedges", fact: "A long stretch of hedges cut, with brilliant service from start to finish.", fig: "Hedges", unit: "long hedge runs" },
@@ -40,7 +40,7 @@
   ],
   reviews: [
     { text: "Brought down a 60ft Scots pine and lopped another beside a neighbour's greenhouse, over two days in 29 degree heat. Waste chipped and removed.", source: "Google review", when: "Jul 2026" },
-    { text: "Cut down four mature dead trees, 15 to 25 metres tall. Arrived on time as promised, worked efficiently and charged a reasonable price.", source: "Google review", when: "Aug 2026" },
+    { text: "Cut down four mature dead trees, 15 to 25 metres tall. On time, as promised, quick to work and fairly priced.", source: "Google review", when: "Aug 2026" },
     { text: "Trees topped and trimmed back neatly, with great communication and everything left tidy. Plans to book again every year.", source: "Google review", when: "Jun 2026" }
   ],
   reviewsNote: "Reviews paraphrased from H Tree Care's Google reviews (5.0 from 16).",

@@ -39,7 +39,7 @@
   ],
   reviews: [
     { text: "Declan and Jamie were efficient, friendly and surprisingly quiet for tree work. They explained what they were doing and why, and cleared up perfectly.", source: "Google review", when: "Dec 2025" },
-    { text: "Declan gave good advice and shared a quote really quickly. We agreed a date with no delay, and the work was done to a high standard and left tidy.", source: "Google review", when: "Nov 2025" },
+    { text: "Declan gave sound advice and sent a quote fast. We agreed a date with no delay, and the work was done to a high standard and left tidy.", source: "Google review", when: "Nov 2025" },
     { text: "Rain meant we wondered if the job had happened, but it was all done and left so clean and tidy that we hadn't realised.", source: "Google review", when: "Aug 2025" }
   ],
   reviewsNote: "Reviews paraphrased from DPH Tree Surgery's Google reviews (5.0 from 10).",

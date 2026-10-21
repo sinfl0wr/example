@@ -36,7 +36,7 @@
     { big: "5.0", cap: "on Google" },
     { big: "52", cap: "five-star reviews" },
     { big: "Tidy", cap: "the word reviews keep using" },
-    { big: "Cats", cap: "rescued from tall trees" },
+    { big: "Cat", cap: "rescued from a tall tree" },
     { big: "4", cap: "large trees felled in one day" },
     { big: "24 hrs", cap: "to clear a storm-fallen tree" },
     { big: "Fair", cap: "quotes, say customers" },

@@ -26,7 +26,7 @@
   steps: [
     { name: "On time", text: "Reviews call Rudi punctual and reliable." },
     { name: "On the job", text: "Customers say he works hard and knows his trees." },
-    { name: "Tidy", text: "He cleans up and never leaves a mess, say customers." }
+    { name: "Tidy", text: "He clears up and leaves no mess behind, say customers." }
   ],
   wall: [
     { big: "5.0", cap: "on Google" },
@@ -40,7 +40,7 @@
   reviews: [
     { text: "Rudi has looked after our garden and kept our trees under control for nearly four years. Competitive prices, very hard work and a friendly manner every time.", source: "Google review", when: "Feb 2024" },
     { text: "Needed help in an emergency and Rudi had the problem solved quickly. Clean, tidy and punctual, and now our first call for tree and garden work.", source: "Google review", when: "Feb 2024" },
-    { text: "Rudi has worked for us for many years: knowledgeable about forestry and tree surgery, always cleans up, and never leaves a mess.", source: "Google review", when: "Feb 2024" }
+    { text: "Rudi has worked for us for many years: knowledgeable about forestry and tree surgery, and the clear-up is always done properly.", source: "Google review", when: "Feb 2024" }
   ],
   reviewsNote: "Reviews paraphrased from Treliving's Tree Surgery & Garden Care's Google reviews (5.0 from 14).",
   areas: ["Billingshurst", "Broadbridge Heath", "Cowfold", "Crawley", "Lower Beeding", "Mannings Heath", "Rusper", "Slinfold", "Southwater", "Warnham"],
@@ -57,7 +57,7 @@
   },
   faq: [
     { tab: "Cost", q: "How does pricing come across?", a: "Reviews call Rudi's prices competitive and his rates reasonable." },
-    { tab: "Clear-up", q: "Does Rudi clear up afterwards?", a: "Customers say he always cleans up and never leaves a mess." },
+    { tab: "Clear-up", q: "Does Rudi clear up afterwards?", a: "Customers say he always clears up and leaves no mess behind." },
     { tab: "Gardens", q: "Is it just trees?", a: "No. Customers also mention hedges and regular garden care." }
   ],
   ownerPhotos: [

@@ -41,7 +41,7 @@
   ],
   reviews: [
     { text: "Toby and the team dismantled four conifers neatly. Good communication before and on the day, a very reasonable price, and everything left tidy.", source: "Google review", when: "Jan 2026" },
-    { text: "Had one tree removed, another trimmed and a stump ground away at a relative's home. Great price, and the site was left immaculate.", source: "Google review", when: "Feb 2023" },
+    { text: "At a relative's home: one tree taken down, a second cut back and the stump ground out. Great price, and the site was left immaculate.", source: "Google review", when: "Feb 2023" },
     { text: "The team cut back the sides and top of an overgrown hedge and left hardly a leaf on the ground.", source: "Google review", when: "Oct 2023" }
   ],
   reviewsNote: "Reviews paraphrased from T Cawley Tree Services' Google reviews (5.0 from 11).",

@@ -42,7 +42,7 @@
   reviews: [
     { text: "A hedge that was out of control got a very competitive quote and was done in a day. Dave added the neighbour's hedge on the day and left it all neat.", source: "Google review", when: "Oct 2023" },
     { text: "Dave cut back growth at the top of a 20ft bank and down its vertical face. Great service, and all the debris was taken away.", source: "Google review", when: "Apr 2023" },
-    { text: "A huge overhanging tree was cut back. The kids now have a safe place to play, and the south-facing garden finally gets sun.", source: "Google review", when: "May 2022" }
+    { text: "A huge overhanging tree was cut back. The garden is safe for the children again, and the south-facing garden finally gets sun.", source: "Google review", when: "May 2022" }
   ],
   reviewsNote: "Reviews paraphrased from Arbutus Trees Surgeons' Google reviews (4.9 from 29).",
   areas: ["Angmering", "Arundel", "Bognor Regis", "Climping", "East Preston", "Felpham", "Lyminster", "Middleton-on-Sea", "Rustington", "Yapton"],
@@ -58,7 +58,7 @@
     }
   },
   faq: [
-    { tab: "Hedges", q: "Do you cut hedges as well as trees?", a: "Yes. Reviews mention large, overgrown hedges cut back, some in a day, with the waste taken away." },
+    { tab: "Hedges", q: "Do you cut hedges as well as trees?", a: "Yes. Reviews mention large, overgrown hedges cut back, some in a day, and tidied up afterwards." },
     { tab: "Contact", q: "Do you keep in touch before the day?", a: "Reviews mention excellent communication before the date and a competitive quote." },
     { tab: "Clear-up", q: "Do you clear up afterwards?", a: "Yes. Reviews say all rubbish is removed and the garden left tidy." }
   ],

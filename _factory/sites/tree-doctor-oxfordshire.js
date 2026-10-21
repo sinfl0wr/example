@@ -20,7 +20,7 @@
   services: [
     { name: "Tree removal", fact: "Dead ash and end-of-life cherries taken down, with logs cut small for a wood burner.", fig: "Removal", unit: "dead and diseased trees" },
     { name: "Pruning and shaping", fact: "A large willow and other big trees pruned and shaped, with a natural look kept.", fig: "Pruning", unit: "natural shape kept" },
-    { name: "Hedge trimming", fact: "Overgrown hedges cut back hard, with everything taken away.", fig: "Hedges", unit: "cut back, taken away" },
+    { name: "Hedge trimming", fact: "Very overgrown hedges cut back, with everything taken away.", fig: "Hedges", unit: "cut back, taken away" },
     { name: "Advice", fact: "Reviews praise Paul's advice on what is best to do, and his tree knowledge.", fig: "Advice", unit: "mentioned by customers" }
   ],
   steps: [
