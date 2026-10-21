@@ -47,3 +47,10 @@ Plain British English, short sentences, no hype words (unleash, elevate, seamles
 
 ## Output
 Write the files. Reply with at most 3 lines: slugs written, and any lead skipped with the reason.
+
+## New leads without a CRM row (batch 2 onwards)
+- `firstName`: the owner's first name only if the data makes it clear — owner replies signed with a name, or several reviews naming the same person as the one who quoted and did the work. Otherwise "".
+- `town`: the `city` from the listing address. If the listing has no address (a service-area business), use the search town from the batch file, and set `baseLine: "Working around <town>"` and `areasIntro: "Working around <town>. Each ring on the map is one mile."`. If it has an address, `baseLine: "Based in <city>"` (add the neighbourhood if the data gives one, e.g. "Based in Lindfield, Haywards Heath").
+- Photos: an uploader whose name is clearly the business itself (same name with Ltd, a longer trading name, the owner's company) counts as the owner. Customers never do.
+- Skip a lead (write no file) if the data shows it is not a tree business, has a real website, or looks closed. Say why in your reply.
+- Reply format, one line per lead: `slug | firstName | town | photos n` (or `skipped: <business> — <reason>`).
